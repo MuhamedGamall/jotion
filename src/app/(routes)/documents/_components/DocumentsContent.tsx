@@ -23,9 +23,9 @@ export default function DocumentsContent() {
         width="300"
         height="300"
       />
-      <h2 className="text-lg font-medium">
+      <h2 className="text-[20px] md:text-[25px] font-medium ">
         Good evening,{" "}
-        <strong >{user?.firstName}&apos;</strong>
+        <strong >{user?.firstName}</strong>
       </h2>
       <Button>
         <PlusCircle className="w-4 h-4 mr-2" />
