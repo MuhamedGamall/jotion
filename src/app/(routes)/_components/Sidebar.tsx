@@ -158,8 +158,7 @@ export function Sidebar() {
           </div>
           <div
             className={cn(
-              `w-6 h-6 text-muted-foreground  absolute
-        top-4 right-2  transition `,
+              `w-6 h-6 text-muted-foreground  absolute top-4 right-2  transition `,
               isMobile && "opacity-100"
             )}
             onClick={handleCreate}

@@ -73,6 +73,7 @@ export function Item({
   const handleExpand = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     onExpand?.();
+
   };
 
   const onCreate = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -108,7 +109,7 @@ export function Item({
       role="button"
       style={{ paddingLeft: level ? `${level * 12 + 12}px` : "12px" }}
     >
-      {!!id && (
+      {id && (
         <div
           className="h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-1"
           onClick={handleExpand}
@@ -132,7 +133,7 @@ export function Item({
         </kbd>
       )}
 
-      {!!id && (
+      {id && (
         <div className="ml-auto flex items-center gap-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>

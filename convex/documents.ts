@@ -56,7 +56,6 @@ export const getSidebar = query({
   },
   handler: async (context, args) => {
     const identity = await context.auth.getUserIdentity();
-    console.log('identity',identity);
 
     if (!identity) {
       throw new Error("Not authenticated");

@@ -43,7 +43,7 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="jotion-theme"
           >
-            <Toaster expand={false} />
+            <Toaster expand={false} theme="dark" />
             {children}
           </ThemeProvider>
         </ConvexClerkProvider>
