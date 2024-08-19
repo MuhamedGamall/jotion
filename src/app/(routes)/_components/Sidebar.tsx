@@ -29,6 +29,7 @@ import React from "react";
 import { TrashBox } from "./TrashBox";
 import { SettingsModal } from "@/components/modals/settings-modal";
 import { SearchModal } from "@/components/modals/search-modal";
+import { Navbar } from "./Navbar";
 
 export default function Empty() {
   return <></>;
@@ -230,20 +231,19 @@ export function Sidebar() {
         )}
         ref={navbarRef}
       >
-        {/* {!!params.documentId ? (
-        <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth}/>
-      ) */}
-        {/* : ( */}
-        <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed && (
-            <MenuIcon
-              className="w-6 h-6 text-muted-foreground"
-              onClick={resetWidth}
-              role="button"
-            />
-          )}
-        </nav>
-        {/* )} */}
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                className="w-6 h-6 text-muted-foreground"
+                onClick={resetWidth}
+                role="button"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );

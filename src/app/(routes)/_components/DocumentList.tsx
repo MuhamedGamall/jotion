@@ -71,6 +71,7 @@ export function DocumentList({
             label={document.title}
             icon={FileIcon}
             documentIcon={document.icon}
+            isPublished={document.isPublished}
             active={params.documentId === document._id}
             level={level}
             onExpand={() => onExpand(document._id)}

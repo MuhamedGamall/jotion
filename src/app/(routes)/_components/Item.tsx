@@ -37,6 +37,7 @@ interface ItemProps {
   label: string;
   onClick?: () => void;
   icon: LucideIcon | any;
+  isPublished?: boolean;
 }
 
 export function Item({
@@ -50,6 +51,7 @@ export function Item({
   level = 0,
   onExpand,
   expanded,
+  isPublished = false,
 }: ItemProps) {
   const { user } = useUser();
   const router = useRouter();
@@ -119,7 +121,15 @@ export function Item({
       ) : (
         <Icon className="shrink-0 w-[18px] h-[18px] mr-2 text-muted-foreground" />
       )}
-      <span className="truncate">{label}</span>
+      <span className="truncate flex items-center gap-2">
+        {label}
+
+        {isPublished && (
+          <span className="block  text-[11px] font-bold text-blue-700">
+            Live
+          </span>
+        )}
+      </span>
       {isSearch && (
         <kbd
           className="ml-auto pointer-events-none inline-flex gap-1 items-center h-5 select-none rounded border
