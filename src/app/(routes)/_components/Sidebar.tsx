@@ -26,6 +26,9 @@ import { api } from "../../../../convex/_generated/api";
 import { DocumentList } from "./DocumentList";
 import { Item } from "./Item";
 import React from "react";
+import { TrashBox } from "./TrashBox";
+import { SettingsModal } from "@/components/modals/settings-modal";
+import { SearchModal } from "@/components/modals/search-modal";
 
 export default function Empty() {
   return <></>;
@@ -43,7 +46,10 @@ export function Sidebar() {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
+  const [settingOpen, setSettingOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const create = useMutation(api.documents.create);
+
   useEffect(() => {
     if (isMobile) {
       collapse();
@@ -122,10 +128,9 @@ export function Sidebar() {
   };
 
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" });
-    // .then((documentId) =>
-    //   // router.push(`/documents/${documentId}`)
-    // );
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    );
 
     toast.promise(promise, {
       loading: "Creating new note...",
@@ -178,8 +183,19 @@ export function Sidebar() {
                 </div>
               </div>
             </SignedIn>
-            <Item label="Search" icon={Search} isSearch onClick={() => {}} />
-            <Item label="Settings" icon={Settings} onClick={() => {}} />
+            <Item
+              label="Search"
+              icon={Search}
+              isSearch
+              onClick={() => setSearchOpen((curr) => !curr)}
+            />
+            <SearchModal isOpen={searchOpen} setIsOpen={setSearchOpen} />
+            <Item
+              label="Settings"
+              icon={Settings}
+              onClick={() => setSettingOpen((curr) => !curr)}
+            />
+            <SettingsModal isOpen={settingOpen} setIsOpen={setSettingOpen} />
             <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
           </div>
           <div className="mt-4">
@@ -193,7 +209,7 @@ export function Sidebar() {
                 className="p-0 w-72 "
                 side={isMobile ? "bottom" : "right"}
               >
-                {/* <TrashBox/> */}
+                <TrashBox />
               </PopoverContent>
             </Popover>
           </div>

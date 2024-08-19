@@ -34,7 +34,7 @@ export function DocumentList({
   };
 
   const onRedirect = (documentId: string) => {
-    // router.push(`/documents/${documentId}`);
+    router.push(`/documents/${documentId}`);
   };
 
   if (documents === undefined) {
@@ -61,7 +61,7 @@ export function DocumentList({
         )}
         style={{ paddingLeft: level ? `${level * 12 + 25}px` : undefined }}
       >
-        No pages available
+        No pages inside
       </p>
       {documents.map((document) => (
         <div key={document._id}>

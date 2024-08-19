@@ -36,7 +36,7 @@ interface ItemProps {
   onExpand?: () => void;
   label: string;
   onClick?: () => void;
-  icon: LucideIcon |any;
+  icon: LucideIcon | any;
 }
 
 export function Item({
@@ -54,38 +54,34 @@ export function Item({
   const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
-  // const archive = useMutation(api.documents.archive)
+  const archive = useMutation(api.documents.archive);
 
-  // const onArchive = (event:React.MouseEvent<HTMLDivElement,MouseEvent>) => {
-  //   event.stopPropagation()
-  //   if (!id) return
-  //   const promise = archive({id})
-  //   .then(() => router.push('/documents'))
+  const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+    if (!id) return;
+    const promise = archive({ id }).then(() => router.push("/documents"));
 
-  //   toast.promise(promise,{
-  //     loading:"Moving to trash...",
-  //     success:"Note moved to trash!",
-  //     error:"Failed to archive note"
-  //   })
-
-  // }
+    toast.promise(promise, {
+      loading: "Moving to trash...",
+      success: "Note moved to trash!",
+      error: "Failed to archive note",
+    });
+  };
 
   const handleExpand = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     onExpand?.();
-
   };
 
   const onCreate = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
     if (!id) return;
-    const promise = create({ title: "Untitled", parentDocument: id })
-    .then(
+    const promise = create({ title: "Untitled", parentDocument: id }).then(
       (documentId) => {
         if (!expanded) {
           onExpand?.();
         }
-        // router.push(`/documents/${documentId}`);
+        router.push(`/documents/${documentId}`);
       }
     );
 
@@ -151,10 +147,10 @@ export function Item({
               side="right"
               forceMount
             >
-              {/* <DropdownMenuItem onClick={onArchive}>
+              <DropdownMenuItem onClick={onArchive}>
                 <Trash className="w-4 h-4 mr-2" />
                 Delete
-              </DropdownMenuItem> */}
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <div
@@ -166,7 +162,6 @@ export function Item({
           </div>
         </div>
       )}
-
     </div>
   );
 }
@@ -174,11 +169,12 @@ export function Item({
 Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
   return (
     <div
-      className="flex gap-x-2 py-[3px]"
+      className="flex items-center  gap-x-2 py-[3px]"
       style={{ paddingLeft: level ? `${level * 12 + 25}px` : "12px" }}
     >
       <Skeleton className="w-4 h-4" />
-      <Skeleton className="w-4 h-[30%]" />
+      <Skeleton className="w-20 h-4" />
+      <Skeleton className="w-4 h-[30%] " />
     </div>
   );
 };
