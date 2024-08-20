@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { Spinner } from "../spinner";
+import { Spinner } from "../LoasdingSpinner";
 
 export default function LoaderProvider() {
   const { user } = useUser();

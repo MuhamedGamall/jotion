@@ -6,7 +6,7 @@ import { Search, Trash, Undo } from "lucide-react";
 import { toast } from "sonner";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { api } from "../../../../convex/_generated/api";
-import { Spinner } from "@/components/spinner";
+import { Spinner } from "@/components/LoasdingSpinner";
 import { Input } from "@/components/ui/input";
 import { ConfirmModal } from "../../../components/modals/confirm-modal";
 

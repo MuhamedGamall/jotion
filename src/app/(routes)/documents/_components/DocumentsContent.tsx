@@ -1,6 +1,6 @@
 "use client";
 
-import { Spinner } from "@/components/spinner";
+import { Spinner } from "@/components/LoasdingSpinner";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
 import { useMutation } from "convex/react";
@@ -18,7 +18,6 @@ export default function DocumentsContent() {
   const { user } = useUser();
 
   if (user === undefined) {
-
     return (
       <div className="h-full flex justify-center items-center">
         <Spinner size="lg" />
