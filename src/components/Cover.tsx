@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 import { Skeleton } from "@/components//ui/skeleton";
-import { api } from "../../../../../../convex/_generated/api";
+import { api } from "../../convex/_generated/api";
 import { CoverImageModal } from "@/components/modals/cover-image-modal";
-import { Id } from "../../../../../../convex/_generated/dataModel";
+import { Id } from "../../convex/_generated/dataModel";
 
 interface CoverProps {
   url?: string;
@@ -41,12 +41,12 @@ export function Cover({ url, preview }: CoverProps) {
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex gap-x-2 items-center">
           <CoverImageModal type="replace">
             <Button
-              className="text-muted-foreground text-xs"
+              className="text-muted-foreground text-xs "
               variant="outline"
               size="sm"
             >
-              <ImageIcon className="w-4 h-4 mr-2" />
-              Change Cover
+              <ImageIcon className="w-4 h-4 md:mr-2" />
+              <span className="md:block hidden">Change Cover</span>
             </Button>
           </CoverImageModal>
           <Button
@@ -55,8 +55,8 @@ export function Cover({ url, preview }: CoverProps) {
             size="sm"
             onClick={onRemove}
           >
-            <X className="w-4 h-4 mr-2" />
-            Remove
+            <X className="w-4 h-4 md:mr-2" />
+            <span className="md:block hidden">Remove</span>
           </Button>
         </div>
       )}

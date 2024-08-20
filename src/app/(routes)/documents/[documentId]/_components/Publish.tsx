@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { api } from "../../../../../../convex/_generated/api";
 import { Doc } from "../../../../../../convex/_generated/dataModel";
+import { useOrigin } from "@/hooks/use-origin";
 
 interface PublishProps {
   initialData: Doc<"documents">;
@@ -20,11 +21,12 @@ interface PublishProps {
 
 export function Publish({ initialData }: PublishProps) {
   const update = useMutation(api.documents.update);
+  const origin = useOrigin();
 
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // const url = `${origin}/preview/${initialData._id}`
+  const url = `${origin}/preview/${initialData._id}`;
 
   const onPublish = () => {
     setIsSubmitting(true);
@@ -56,15 +58,15 @@ export function Publish({ initialData }: PublishProps) {
     });
   };
 
-  // const onCopy = () => {
-  //   navigator.clipboard.writeText(url)
+  const onCopy = () => {
+    navigator.clipboard.writeText(url);
 
-  //   setCopied(true)
+    setCopied(true);
 
-  //   setTimeout(() => {
-  //     setCopied(false)
-  //   }, 1000);
-  // }
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
 
   return (
     <Popover>
@@ -85,17 +87,24 @@ export function Publish({ initialData }: PublishProps) {
                 This note live on web
               </p>
             </div>
-            {/* <div className="flex items-center">
-              <input className="flex-1 px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
-               value={url} disabled/>
-               <Button className="h-8 rounded-l-none" onClick={onCopy} disabled={copied}>
+            <div className="flex items-center">
+              <input
+                className="flex-1 px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
+                value={url}
+                disabled
+              />
+              <Button
+                className="h-8 rounded-l-none"
+                onClick={onCopy}
+                disabled={copied}
+              >
                 {copied ? (
-                  <Check className="w-4 h-4"/>
+                  <Check className="w-4 h-4" />
                 ) : (
-                  <Copy className="w-4 h-4"/>
+                  <Copy className="w-4 h-4" />
                 )}
-               </Button>
-            </div> */}
+              </Button>
+            </div>
             <Button
               className="w-full text-xs"
               size="sm"

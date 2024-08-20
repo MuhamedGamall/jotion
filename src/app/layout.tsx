@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import ConvexClerkProvider from "@/components/providers/ConvexClerkProvider";
 import { Toaster } from "sonner";
+import LoaderProvider from "@/components/providers/LoaderProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ConvexClerkProvider>
+          <LoaderProvider />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

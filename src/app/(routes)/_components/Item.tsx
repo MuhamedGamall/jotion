@@ -125,7 +125,7 @@ export function Item({
         {label}
 
         {isPublished && (
-          <span className="block  text-[11px] font-bold text-blue-700">
+          <span className="block  text-[11px] font-bold text-green-700">
             Live
           </span>
         )}

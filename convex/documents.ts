@@ -211,6 +211,8 @@ export const remove = mutation({
     }
 
     const document = await context.db.delete(args.id);
+    existingDocument.coverImageStorageId &&
+      (await context.storage.delete(existingDocument.coverImageStorageId));
 
     return document;
   },
@@ -372,5 +374,33 @@ export const removeCoverImage = mutation({
     });
 
     return document;
+  },
+});
+export const uploadFile = mutation({
+  args: {
+    id: v.id("documents"),
+    fileStorageId: v.id("_storage"),
+  },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Unauthenticated");
+    }
+
+    const userId = identity.subject;
+
+    const existingDocument = await context.db.get(args.id);
+
+    if (!existingDocument || !existingDocument.coverImageStorageId) {
+      throw new Error("Not found");
+    }
+
+    if (existingDocument.userId !== userId) {
+      throw new Error("Unauthorized");
+    }
+    const url = await context.storage.getUrl(args.fileStorageId);
+
+    return { url };
   },
 });

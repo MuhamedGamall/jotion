@@ -7,9 +7,9 @@ import TextAreaAutoSize from "react-textarea-autosize";
 
 import { Button } from "@/components/ui/button";
 
-import { api } from "../../../../../../convex/_generated/api";
-import { Doc } from "../../../../../../convex/_generated/dataModel";
-import { IconPicker } from "./icon-picker";
+import { api } from "../../convex/_generated/api";
+import { Doc } from "../../convex/_generated/dataModel";
+import { IconPicker } from "../app/(routes)/documents/[documentId]/_components/icon-picker";
 import { CoverImageModal } from "@/components/modals/cover-image-modal";
 
 interface ToolbarProps {
@@ -65,9 +65,9 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
   };
 
   return (
-    <div className="pl-[54px] group relative">
+    <div className="pl-[54px] group relative mt-16">
       {!!initialData.icon && !preview && (
-        <div className="flex gap-x-2 items-center group/icon pt-6 absolute left-[15%] -top-[50px]">
+        <div className="flex gap-x-2 items-center group/icon pt-6 absolute left-[5%] -top-[125px]">
           <IconPicker onChange={onIconSelect}>
             <p className="text-6xl hover:opacity-75 transition ">
               {initialData.icon}
@@ -85,7 +85,9 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
         </div>
       )}
       {!!initialData.icon && preview && (
-        <p className="text-6xl pt-6 absolute left-[15%] -top-[50px]">{initialData.icon}</p>
+        <p className="text-6xl pt-6 absolute left-[5%] -top-[125px]">
+          {initialData.icon}
+        </p>
       )}
       <div className="opacity-0  group-hover:opacity-100 flex items-center gap-x-1 py-4">
         {!initialData.icon && !preview && (
