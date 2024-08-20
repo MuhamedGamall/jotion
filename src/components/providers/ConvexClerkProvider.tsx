@@ -4,7 +4,6 @@ import { ClerkProvider, useAuth } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { ConvexReactClient } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
-import { useTheme } from "next-themes";
 import { ReactNode } from "react";
 
 const convex = new ConvexReactClient(
@@ -12,13 +11,12 @@ const convex = new ConvexReactClient(
 );
 
 const ConvexClerkProvider = ({ children }: { children: ReactNode }) => {
-  const { resolvedTheme } = useTheme();
   return (
     <ClerkProvider
       afterSignOutUrl={"/"}
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY as string}
       appearance={{
-        baseTheme: resolvedTheme === "dark" ? dark : undefined,
+        baseTheme: dark,
       }}
     >
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
