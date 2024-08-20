@@ -10,12 +10,12 @@ import { Button } from "@/components/ui/button";
 import { api } from "../../../../../../convex/_generated/api";
 import { Doc } from "../../../../../../convex/_generated/dataModel";
 import { IconPicker } from "./icon-picker";
+import { CoverImageModal } from "@/components/modals/cover-image-modal";
 
 interface ToolbarProps {
   initialData: Doc<"documents">;
   preview?: boolean;
 }
-
 export function Toolbar({ initialData, preview }: ToolbarProps) {
   const inputRef = useRef<ElementRef<"textarea">>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -67,9 +67,9 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
   return (
     <div className="pl-[54px] group relative">
       {!!initialData.icon && !preview && (
-        <div className="flex gap-x-2 items-center group/icon pt-6">
+        <div className="flex gap-x-2 items-center group/icon pt-6 absolute left-[15%] -top-[50px]">
           <IconPicker onChange={onIconSelect}>
-            <p className="text-6xl hover:opacity-75 transition">
+            <p className="text-6xl hover:opacity-75 transition ">
               {initialData.icon}
             </p>
           </IconPicker>
@@ -85,9 +85,9 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
         </div>
       )}
       {!!initialData.icon && preview && (
-        <p className="text-6xl pt-6">{initialData.icon}</p>
+        <p className="text-6xl pt-6 absolute left-[15%] -top-[50px]">{initialData.icon}</p>
       )}
-      <div className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4">
+      <div className="opacity-0  group-hover:opacity-100 flex items-center gap-x-1 py-4">
         {!initialData.icon && !preview && (
           <IconPicker asChild onChange={onIconSelect}>
             <Button
@@ -101,19 +101,21 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
           </IconPicker>
         )}
         {!initialData.coverImage && !preview && (
-          <Button
-            className="text-muted-foreground text-xs"
-            variant="outline"
-            size="sm"
-          >
-            <ImageIcon className="w-4 h-4 mr-2" />
-            Add cover
-          </Button>
+          <CoverImageModal type="add">
+            <Button
+              className="text-muted-foreground text-xs"
+              variant="outline"
+              size="sm"
+            >
+              <ImageIcon className="w-4 h-4 mr-2" />
+              Add cover
+            </Button>
+          </CoverImageModal>
         )}
       </div>
       {isEditing && !preview ? (
         <TextAreaAutoSize
-          className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]
+          className="text-5xl  bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]
         resize-none"
           ref={inputRef}
           onBlur={disableInput}

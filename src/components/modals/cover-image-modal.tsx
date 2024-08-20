@@ -1,66 +1,80 @@
-'use client'	
+"use client";
 
-import { useState } from "react"
-import { useMutation } from "convex/react"
-import { useParams } from "next/navigation"
+import { useState } from "react";
+import { useMutation } from "convex/react";
+import { useParams } from "next/navigation";
 
-import {Dialog,DialogContent,DialogHeader} from '@/components/ui/dialog'
-import { useConverImage } from "@/hooks/use-cover-image"
-import { SingleImageDropzone } from "@/components/single-image-dropzone"
-import { useEdgeStore } from "@/lib/edgestore"
-import { api } from "@/convex/_generated/api"
-import { Id } from "@/convex/_generated/dataModel"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { api } from "../../../convex/_generated/api";
+import { SingleImageDropzone } from "../single-image-dropzone";
+import { Id } from "../../../convex/_generated/dataModel";
 
-export function CoverImageModal () {
-
-  const params = useParams()
-  const update = useMutation(api.documents.update)
-  const [file,setFile] = useState<File>()
-  const [isSubmitting,setIsSubmitting] = useState(false)
-  const coverImage = useConverImage()
-  const {edgestore} = useEdgeStore()
+export function CoverImageModal({
+  children,
+  type,
+}: {
+  children: React.ReactNode;
+  type: "add" | "replace";
+}) {
+  const params = useParams();
+  const update = useMutation(api.documents.update);
+  const removeCoverImage = useMutation(api.documents.removeCoverImage);
+  const [file, setFile] = useState<File>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const generateUploadUrl = useMutation(api.documents.generateUploadUrl);
 
   const onClose = () => {
-    setFile(undefined)
-    setIsSubmitting(false)
-    coverImage.onClose()
-  }
+    setFile(undefined);
+    setIsSubmitting(false);
+  };
 
-  const onChange = async (file?:File) => {
+  const onChange = async (file?: File) => {
     if (file) {
-      setIsSubmitting(true)
-      setFile(file)
+      setIsSubmitting(true);
+      setFile(file);
+      if (type === "replace") {
+        await removeCoverImage({
+          id: params.documentId as Id<"documents">,
+        });
+      }
+      const postUrl = await generateUploadUrl();
 
-      const response = await edgestore.publicFiles.upload({
-          file,
-          options:{
-            replaceTargetUrl:coverImage.url
-          }
-        })
-    
+      const result = await fetch(postUrl, {
+        method: "POST",
+        headers: { "Content-Type": file!.type },
+        body: file,
+      });
+
+      const { storageId } = await result.json();
 
       await update({
-        id:params.documentId as Id<'documents'>,
-        coverImage:response.url
-      })
+        id: params.documentId as Id<"documents">,
+        coverImageStorageId: storageId,
+      });
 
-      onClose()
+      onClose();
     }
-  }
+  };
 
-return (
-    <Dialog open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
+  return (
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <h2 className="text-center text-lg font-semibold">
-            Cover Image
-          </h2>
+          <h2 className="text-center text-lg font-semibold">Cover Image</h2>
         </DialogHeader>
-        <SingleImageDropzone className="w-full outline-none"
-        disabled={isSubmitting}
-        value={file}
-        onChange={onChange}/>
+        <SingleImageDropzone
+          className="w-full outline-none"
+          disabled={isSubmitting}
+          value={file}
+          onChange={onChange}
+        />
       </DialogContent>
     </Dialog>
-)
+  );
 }

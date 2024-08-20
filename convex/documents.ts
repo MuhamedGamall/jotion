@@ -3,13 +3,22 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { Doc, Id } from "./_generated/dataModel";
 
+export const generateUploadUrl = mutation(async (ctx) => {
+  const identity = await ctx.auth.getUserIdentity();
+
+  if (!identity) {
+    throw new Error("Unauthenticated");
+  }
+
+  return await ctx.storage.generateUploadUrl();
+});
 export const archive = mutation({
   args: { id: v.id("documents") },
   handler: async (context, args) => {
     const identity = await context.auth.getUserIdentity();
 
     if (!identity) {
-      throw new Error("Not authenticated");
+      throw new Error("Unauthenticated");
     }
 
     const userId = identity.subject;
@@ -58,7 +67,7 @@ export const getSidebar = query({
     const identity = await context.auth.getUserIdentity();
 
     if (!identity) {
-      throw new Error("Not authenticated");
+      throw new Error("Unauthenticated");
     }
 
     const userId = identity.subject;
@@ -85,7 +94,7 @@ export const create = mutation({
     const identity = await context.auth.getUserIdentity();
 
     if (!identity) {
-      throw new Error("Not authenticated");
+      throw new Error("Unauthenticated");
     }
 
     const userId = identity.subject;
@@ -107,7 +116,7 @@ export const getTrash = query({
     const identity = await context.auth.getUserIdentity();
 
     if (!identity) {
-      throw new Error("Not authenticated");
+      throw new Error("Unauthenticated");
     }
 
     const userId = identity.subject;
@@ -129,7 +138,7 @@ export const restore = mutation({
     const identity = await context.auth.getUserIdentity();
 
     if (!identity) {
-      throw new Error("Not authenticated");
+      throw new Error("Unauthenticated");
     }
 
     const userId = identity.subject;
@@ -186,7 +195,7 @@ export const remove = mutation({
     const identity = await context.auth.getUserIdentity();
 
     if (!identity) {
-      throw new Error("Not authenticated");
+      throw new Error("Unauthenticated");
     }
 
     const userId = identity.subject;
@@ -211,8 +220,10 @@ export const getSearch = query({
   handler: async (context) => {
     const identity = await context.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Not authenticated");
+    if (!identity?.subject) {
+      console.log(identity);
+
+      throw new Error("Unauthenticated");
     }
 
     const userId = identity.subject;
@@ -229,11 +240,13 @@ export const getSearch = query({
 });
 
 export const getById = query({
-  args: { documentId: v.id("documents") },
+  args: {
+    documentId: v.id("documents"),
+  },
   handler: async (context, args) => {
     const identity = await context.auth.getUserIdentity();
 
-    const document = await context.db.get(args.documentId);
+    let document = await context.db.get(args.documentId);
 
     if (!document) {
       throw new Error("Not found");
@@ -244,7 +257,7 @@ export const getById = query({
     }
 
     if (!identity) {
-      throw new Error("Not authenticated");
+      throw new Error("Unauthenticated");
     }
 
     const userId = identity.subject;
@@ -265,6 +278,7 @@ export const update = mutation({
     coverImage: v.optional(v.string()),
     icon: v.optional(v.string()),
     isPublished: v.optional(v.boolean()),
+    coverImageStorageId: v.optional(v.id("_storage")),
   },
   handler: async (context, args) => {
     const identity = await context.auth.getUserIdentity();
@@ -286,9 +300,13 @@ export const update = mutation({
     if (existingDocument.userId !== userId) {
       throw new Error("Unauthorized");
     }
+    const coverImage = args.coverImageStorageId
+      ? (await context.storage.getUrl(args.coverImageStorageId)) || undefined
+      : existingDocument.coverImage;
 
     const document = await context.db.patch(args.id, {
       ...rest,
+      coverImage,
     });
 
     return document;
@@ -325,7 +343,9 @@ export const removeIcon = mutation({
 });
 
 export const removeCoverImage = mutation({
-  args: { id: v.id("documents") },
+  args: {
+    id: v.id("documents"),
+  },
   handler: async (context, args) => {
     const identity = await context.auth.getUserIdentity();
 
@@ -337,16 +357,18 @@ export const removeCoverImage = mutation({
 
     const existingDocument = await context.db.get(args.id);
 
-    if (!existingDocument) {
+    if (!existingDocument || !existingDocument.coverImageStorageId) {
       throw new Error("Not found");
     }
 
     if (existingDocument.userId !== userId) {
       throw new Error("Unauthorized");
     }
+    await context.storage.delete(existingDocument.coverImageStorageId);
 
     const document = await context.db.patch(args.id, {
       coverImage: undefined,
+      coverImageStorageId: undefined,
     });
 
     return document;

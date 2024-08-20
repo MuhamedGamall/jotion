@@ -1,6 +1,6 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
-
+export const fileTypes = v.union(v.literal("image"));
 export default defineSchema({
   documents: defineTable({
     title: v.string(),
@@ -9,6 +9,7 @@ export default defineSchema({
     parentDocument: v.optional(v.id("documents")),
     content: v.optional(v.string()),
     coverImage: v.optional(v.string()),
+    coverImageStorageId: v.optional(v.id("_storage")),
     icon: v.optional(v.string()),
     isPublished: v.boolean(),
   })
