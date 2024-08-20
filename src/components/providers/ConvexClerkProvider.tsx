@@ -14,6 +14,7 @@ const ConvexClerkProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ClerkProvider
       afterSignOutUrl={"/"}
+      
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY as string}
       appearance={{
         baseTheme: dark,
