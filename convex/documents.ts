@@ -392,7 +392,7 @@ export const uploadFile = mutation({
 
     const existingDocument = await context.db.get(args.id);
 
-    if (!existingDocument || !existingDocument.coverImageStorageId) {
+    if (!existingDocument || !args.fileStorageId) {
       throw new Error("Not found");
     }
 

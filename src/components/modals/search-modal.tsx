@@ -1,9 +1,8 @@
 "use client";
 
-import { File } from "lucide-react";
 import { useQuery } from "convex/react";
+import { File } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/clerk-react";
 
 import {
   CommandDialog,
@@ -13,7 +12,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { api } from "../../../convex/_generated/api";
 
 export function SearchModal({
@@ -23,7 +22,7 @@ export function SearchModal({
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { user } = useUser();
+
   const router = useRouter();
   const documents = useQuery(api.documents.getSearch);
 
@@ -48,12 +47,11 @@ export function SearchModal({
       <CommandInput placeholder={`Search in your documents`} />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        
         <CommandGroup heading="Documents">
           {documents?.map((document) => (
             <CommandItem
               key={document._id}
-              value={`${document._id}-${document.title}`}
+              value={document._id}
               title={document.title}
               onSelect={onSelect}
             >

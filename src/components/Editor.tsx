@@ -48,6 +48,7 @@ function Editor({ onChange, initialContent, editable }: EditorProps) {
       ? (JSON.parse(initialContent) as PartialBlock[])
       : undefined,
     uploadFile: handleUpload as any,
+    
   });
 
   const handleEditorChange = () => {
@@ -55,9 +56,10 @@ function Editor({ onChange, initialContent, editable }: EditorProps) {
   };
 
   return (
-    <BlockNoteView 
+    <BlockNoteView
       editable={editable}
       editor={editor}
+      onContextMenu={() => false}
       theme={resolvedTheme === "dark" ? "dark" : "light"}
       onChange={handleEditorChange}
     />

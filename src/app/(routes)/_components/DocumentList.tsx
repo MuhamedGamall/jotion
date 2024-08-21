@@ -59,7 +59,7 @@ export function DocumentList({
           expanded && "last:block",
           level === 0 && "hidden"
         )}
-        style={{ paddingLeft: level ? `${level * 12 + 25}px` : undefined }}
+        style={{ paddingLeft: level ? `${level * 8 + 20}px` : undefined }}
       >
         No pages inside
       </p>

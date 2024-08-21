@@ -67,7 +67,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
   return (
     <div className="pl-[54px] group relative mt-16">
       {!!initialData.icon && !preview && (
-        <div className="flex gap-x-2 items-center group/icon pt-6 absolute left-[5%] -top-[125px]">
+        <div className="flex gap-x-2 items-center group/icon pt-6 absolute left-[10%] -top-[125px]">
           <IconPicker onChange={onIconSelect}>
             <p className="text-6xl hover:opacity-75 transition ">
               {initialData.icon}
@@ -85,7 +85,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
         </div>
       )}
       {!!initialData.icon && preview && (
-        <p className="text-6xl pt-6 absolute left-[5%] -top-[125px]">
+        <p className="text-6xl pt-6 absolute left-[10%] -top-[125px]">
           {initialData.icon}
         </p>
       )}

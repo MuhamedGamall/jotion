@@ -47,7 +47,7 @@ export function Menu({ documentId }: MenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-60"
+        className="md:w-60 w-[100px]"
         align="end"
         alignOffset={8}
         forceMount

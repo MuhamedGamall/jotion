@@ -2,14 +2,14 @@
 
 import { useRouter } from "next/navigation";
 
-import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 import { useMutation } from "convex/react";
 import {
   ChevronDown,
@@ -20,11 +20,8 @@ import {
   Trash,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useUser } from "@clerk/clerk-react";
-import { Id } from "../../../../convex/_generated/dataModel";
 import { api } from "../../../../convex/_generated/api";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ReactNode } from "react";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 interface ItemProps {
   id?: Id<"documents">;
@@ -53,7 +50,6 @@ export function Item({
   expanded,
   isPublished = false,
 }: ItemProps) {
-  const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
   const archive = useMutation(api.documents.archive);
@@ -83,7 +79,6 @@ export function Item({
         if (!expanded) {
           onExpand?.();
         }
-      
       }
     );
 
@@ -105,7 +100,7 @@ export function Item({
       )}
       onClick={onClick}
       role="button"
-      style={{ paddingLeft: level ? `${level * 12 + 12}px` : "12px" }}
+      style={{ paddingLeft: level ? `${level * 8 + 8}px` : "8px" }}
     >
       {id && (
         <div
@@ -132,20 +127,24 @@ export function Item({
       </span>
       {isSearch && (
         <kbd
-          className="ml-auto pointer-events-none inline-flex gap-1 items-center h-5 select-none rounded border
-        bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100"
+          className="ml-auto pointer-events-none  gap-1  h-5 select-none rounded border
+        bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 flex items-center"
         >
           <span className="text-xs">⌘</span>K
         </kbd>
       )}
 
       {id && (
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2 ml-auto">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+            <DropdownMenuTrigger
+              asChild
+              onClick={(e) => e.stopPropagation()}
+              className="hidden md:block"
+            >
               <div
-                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm
-              hover:bg-neutral-300 dark:hover:bg-neutral-600"
+                className="md:opacity-0 md:group-hover:opacity-100 h-full w-full rounded-sm
+              hover:bg-neutral-300 dark:hover:bg-neutral-600 "
                 role="button"
               >
                 <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
@@ -153,8 +152,8 @@ export function Item({
             </DropdownMenuTrigger>
             <DropdownMenuContent
               className="w-[100px] md:w-60"
-              align="start"
-              side="right"
+              align="center"
+              side="top"
               forceMount
             >
               <DropdownMenuItem onClick={onArchive}>
@@ -164,7 +163,14 @@ export function Item({
             </DropdownMenuContent>
           </DropdownMenu>
           <div
-            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+            className=" md:hidden block h-full w-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-2 "
+            role="button"
+            onClick={onArchive}
+          >
+            <Trash className="w-4 h-4 text-muted-foreground" />
+          </div>
+          <div
+            className="md:opacity-0 md:group-hover:opacity-100 h-full w-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600  "
             role="button"
             onClick={onCreate}
           >
@@ -180,7 +186,7 @@ Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
   return (
     <div
       className="flex items-center  gap-x-2 py-[3px]"
-      style={{ paddingLeft: level ? `${level * 12 + 25}px` : "12px" }}
+      style={{ paddingLeft: level ? `${level * 8 + 20}px` : "8px" }}
     >
       <Skeleton className="w-4 h-4" />
       <Skeleton className="w-20 h-4" />

@@ -1,18 +1,15 @@
 "use client";
 
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui//label";
 import { ModeToggle } from "@/components/ModeToggle";
 
-export function SettingsModal({
-  isOpen,
-  setIsOpen,
-}: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export function SettingsModal({ children }: { children: React.ReactNode }) {
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog >
+        <DialogTrigger className="w-full">
+          {children}
+        </DialogTrigger>
       <DialogContent>
         <DialogHeader className="border-b pb-3">
           <h2 className="text-lg font-medium">My settings</h2>
