@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import ConvexClerkProvider from "@/components/providers/ConvexClerkProvider";
 import { Toaster } from "sonner";
 import LoaderProvider from "@/components/providers/LoaderProvider";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,18 +36,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={cn(inter.className)}>
         <ConvexClerkProvider>
-          <LoaderProvider />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
             storageKey="jotion-theme"
-          >
+            >
             <Toaster expand={false} theme="dark" />
+          <LoaderProvider >
             {children}
+            </LoaderProvider>
           </ThemeProvider>
         </ConvexClerkProvider>
       </body>

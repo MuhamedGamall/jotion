@@ -3,10 +3,10 @@
 import { useUser } from "@clerk/nextjs";
 import { Spinner } from "../LoasdingSpinner";
 
-export default function LoaderProvider() {
+export default function LoaderProvider({ children }: { children: React.ReactNode }) {
   const { user } = useUser();
 
-  if (user === undefined) {
+  if (user == undefined) {
     return (
       <div className="h-full flex justify-center items-center">
         <Spinner size="lg" />
@@ -14,5 +14,5 @@ export default function LoaderProvider() {
     );
   }
 
-  return <></>;
+  return <>{children}</>;
 }
