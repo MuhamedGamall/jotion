@@ -83,7 +83,7 @@ export function Item({
         if (!expanded) {
           onExpand?.();
         }
-        router.push(`/documents/${documentId}`);
+      
       }
     );
 
@@ -140,7 +140,7 @@ export function Item({
       )}
 
       {id && (
-        <div className="ml-auto flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
               <div
@@ -152,7 +152,7 @@ export function Item({
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="w-60"
+              className="w-[100px] md:w-60"
               align="start"
               side="right"
               forceMount
