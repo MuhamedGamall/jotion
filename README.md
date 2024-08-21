@@ -27,7 +27,7 @@ A fullstack Notion clone built with Next.js, React, Tailwind, Clerk, Convex, Edg
 ### Clone the repo
 
 ```bash
-git clone https://github.com/sgbj/notion-clone.git
+git clone https://github.com/MuhamedGamall/jotion.git
 ```
 
 ### Install dependencies
@@ -46,8 +46,6 @@ NEXT_PUBLIC_CONVEX_URL=
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 
-EDGE_STORE_ACCESS_KEY=
-EDGE_STORE_SECRET_KEY=
 ```
 
 ### Start Convex
@@ -61,7 +59,3 @@ npx convex dev
 ```bash
 npm run dev
 ```
-
-### Credit
-
-Created by following along with [AntonioErdeljac/notion-clone-tutorial](https://github.com/AntonioErdeljac/notion-clone-tutorial).
