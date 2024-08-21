@@ -129,9 +129,7 @@ export function Sidebar() {
   };
 
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" }).then((documentId) =>
-      router.push(`/documents/${documentId}`)
-    );
+    const promise = create({ title: "Untitled" })
 
     toast.promise(promise, {
       loading: "Creating new note...",
