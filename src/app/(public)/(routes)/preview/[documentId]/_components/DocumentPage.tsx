@@ -22,18 +22,11 @@ export default function DocumentContent({ params }: DocumentIdPageProps) {
     []
   );
 
-  const document = useQuery(api.documents.getById, {
+  const document = useQuery(api.documents.getReview, {
     documentId: params.documentId,
   });
 
-  const update = useMutation(api.documents.update);
 
-  const onChange = (content: string) => {
-    update({
-      id: params.documentId,
-      content,
-    });
-  };
 
   if (document === undefined) {
     return (
@@ -66,7 +59,7 @@ export default function DocumentContent({ params }: DocumentIdPageProps) {
         <Toolbar preview initialData={document} />
         <Editor
           editable={false}
-          onChange={onChange}
+          onChange={()=>{}}
           initialContent={document.content}
         />
       </div>

@@ -14,6 +14,7 @@ import { useMutation } from "convex/react";
 import {
   ChevronDown,
   ChevronRight,
+  Globe,
   LucideIcon,
   MoreHorizontal,
   Plus,
@@ -116,14 +117,9 @@ export function Item({
       ) : (
         <Icon className="shrink-0 w-[18px] h-[18px] mr-2 text-muted-foreground" />
       )}
-      <span className="truncate flex items-center gap-2">
-        {label}
-
-        {isPublished && (
-          <span className="block  text-[11px] font-bold text-green-700">
-            Live
-          </span>
-        )}
+      <span className=" flex items-center gap-2">
+        <span className="truncate max-w-[100px]">{label}</span>
+        {isPublished && <Globe className="text-sky-500 w-3 h-3" />}
       </span>
       {isSearch && (
         <kbd
@@ -152,8 +148,8 @@ export function Item({
             </DropdownMenuTrigger>
             <DropdownMenuContent
               className="w-[100px] md:w-60"
-              align="center"
-              side="top"
+              align="start"
+              side="left"
               forceMount
             >
               <DropdownMenuItem onClick={onArchive}>

@@ -55,7 +55,7 @@ export const MobileSheet = ({ children }: { children: React.ReactNode }) => {
     <Sheet>
       <SheetTrigger>{children}</SheetTrigger>
 
-      <SheetContent side={"left"} className="p-0 z-[99999]">
+      <SheetContent side={"left"} className="p-0 z-[9999]">
         <aside
           className={cn(
             `group/sidebar h-full bg-secondary overflow-y-auto relative flex flex-col w-full z-[999]`

@@ -74,37 +74,37 @@ export function TrashBox() {
           placeholder="Filter by page title..."
         />
       </div>
-      <div className="mt-2 px-1 pb-1 ">
+      <div className="mt-2 px-1 pb-1  max-h-[300px] overflow-y-auto ">
         <p className="hidden last:block text-xs text-center text-muted-foreground pb-2">
           No documents found
         </p>
         {filteredDocuments?.map((document) => (
           <div
-            className="text-sm rounded-sm w-full hover:bg-primary/5 flex justify-between items-center text-primary"
-            key={document._id}
-            role="button"
-            onClick={() => onClick(document._id)}
-          >
-            <span className="truncate pl-2">{document.title}</span>
-            <div className="flex items-center">
-              <div
-                className="rounded-sm p-2 hover:bg-neutral-200 
-              dark:hover:bg-neutral-600"
-                onClick={(e) => onRestore(e, document._id)}
-              >
-                <Undo className="w-4 h-4 text-muted-foreground" />
-              </div>
-              <ConfirmModal onConfirm={() => onRemove(document._id)}>
-                <div
-                  className="rounded-sm p-2 hover:bg-neutral-200
-                dark:hover:bg-neutral-600"
-                  role="button"
-                >
-                  <Trash className="w-4 h-4 text-muted-foreground" />
-                </div>
-              </ConfirmModal>
+          className="text-sm rounded-sm w-full hover:bg-primary/5 flex justify-between items-center text-primary"
+          key={document._id}
+          role="button"
+          onClick={() => onClick(document._id)}
+        >
+          <span className="truncate pl-2 max-w-[250px] ">{document.title}</span>
+          <div className="flex items-center">
+            <div
+              className="rounded-sm p-2 hover:bg-neutral-200 
+            dark:hover:bg-neutral-600"
+              onClick={(e) => onRestore(e, document._id)}
+            >
+              <Undo className="w-4 h-4 text-muted-foreground" />
             </div>
+            <ConfirmModal onConfirm={() => onRemove(document._id)}>
+              <div
+                className="rounded-sm p-2 hover:bg-neutral-200
+              dark:hover:bg-neutral-600"
+                role="button"
+              >
+                <Trash className="w-4 h-4 text-muted-foreground" />
+              </div>
+            </ConfirmModal>
           </div>
+        </div>
         ))}
       </div>
     </div>

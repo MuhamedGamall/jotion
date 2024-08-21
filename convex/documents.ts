@@ -51,6 +51,7 @@ export const archive = mutation({
 
     const document = await context.db.patch(args.id, {
       isArchived: true,
+      isPublished: false,
     });
 
     recursiveArchive(args.id);
@@ -223,8 +224,6 @@ export const getSearch = query({
     const identity = await context.auth.getUserIdentity();
 
     if (!identity?.subject) {
-      console.log(identity);
-
       throw new Error("Unauthenticated");
     }
 
@@ -233,7 +232,6 @@ export const getSearch = query({
     const documents = await context.db
       .query("documents")
       .withIndex("by_user", (q) => q.eq("userId", userId))
-      .filter((q) => q.eq(q.field("isArchived"), false))
       .order("desc")
       .collect();
 
@@ -271,7 +269,39 @@ export const getById = query({
     return document;
   },
 });
+export const getReview = query({
+  args: {
+    documentId: v.id("documents"),
+  },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Unauthenticated");
+    }
+    const userId = identity.subject;
 
+    let document = await context.db
+      .query("documents")
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .filter((q) => q.eq(q.field("_id"), args.documentId))
+      .filter((q) => q.eq(q.field("isArchived"), false))
+      .unique();
+
+    if (!document) {
+      throw new Error("Not found");
+    }
+
+    if (document.isPublished && !document.isArchived) {
+      return document;
+    }
+
+    if (document.userId !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    return document;
+  },
+});
 export const update = mutation({
   args: {
     id: v.id("documents"),

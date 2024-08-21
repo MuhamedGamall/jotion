@@ -50,7 +50,7 @@ export function Title({ initialData }: TitleProps) {
   };
 
   return (
-    <div className="flex gap-x-1 items-center">
+    <div className="flex gap-x-1 items-center ">
       {!!initialData.icon && <p>{initialData.icon}</p>}
       {isEditing ? (
         <Input
@@ -69,7 +69,7 @@ export function Title({ initialData }: TitleProps) {
           size="sm"
           onClick={enableInput}
         >
-          <span className="truncate">{initialData?.title}</span>
+          <span className="truncate max-w-[100px] md:max-w-[250px]">{initialData?.title}</span>
         </Button>
       )}
     </div>

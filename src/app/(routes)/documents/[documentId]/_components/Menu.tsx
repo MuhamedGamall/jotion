@@ -15,21 +15,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Id } from "../../../../../../convex/_generated/dataModel";
+import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
 import { api } from "../../../../../../convex/_generated/api";
 
 interface MenuProps {
-  documentId: Id<"documents">;
+  document: Doc<"documents">;
 }
 
-export function Menu({ documentId }: MenuProps) {
+export function Menu({ document }: MenuProps) {
   const router = useRouter();
   const { user } = useUser();
 
   const archive = useMutation(api.documents.archive);
 
   const onArchive = () => {
-    const promise = archive({ id: documentId });
+    if (document.isArchived) return;
+
+    const promise = archive({ id: document._id });
 
     toast.promise(promise, {
       loading: "Moving to trash...",
@@ -42,7 +44,7 @@ export function Menu({ documentId }: MenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="sm" variant="ghost">
+        <Button size="sm" variant="ghost" className="sm:px-3 px-2">
           <MoreHorizontal className="w-4 h-4" />
         </Button>
       </DropdownMenuTrigger>

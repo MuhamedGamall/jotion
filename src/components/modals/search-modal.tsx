@@ -22,7 +22,6 @@ export function SearchModal({
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-
   const router = useRouter();
   const documents = useQuery(api.documents.getSearch);
 
@@ -30,7 +29,7 @@ export function SearchModal({
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setIsOpen(curr=>!curr);
+        setIsOpen((curr) => !curr);
       }
     };
     document.addEventListener("keydown", down);
@@ -45,7 +44,7 @@ export function SearchModal({
   return (
     <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
       <CommandInput placeholder={`Search in your documents`} />
-      <CommandList>
+      <CommandList className="max-h-[300px] overflow-y-auto">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Documents">
           {documents?.map((document) => (
@@ -60,7 +59,14 @@ export function SearchModal({
               ) : (
                 <File className="w-4 h-4 mr-2" />
               )}
-              <span>{document.title}</span>
+              <div className="flex items-center justify-between w-full ">
+                <span className="max-w-[250px]  truncate block">{document.title}</span>
+                {document.isArchived && (
+                  <span className="text-[10px] ">
+                    <i>Archived</i>
+                  </span>
+                )}
+              </div>
             </CommandItem>
           ))}
         </CommandGroup>

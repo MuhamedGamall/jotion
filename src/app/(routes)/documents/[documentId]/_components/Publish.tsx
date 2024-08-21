@@ -29,8 +29,8 @@ export function Publish({ initialData }: PublishProps) {
   const url = `${origin}/preview/${initialData._id}`;
 
   const onPublish = () => {
+    if (initialData.isArchived) return;
     setIsSubmitting(true);
-
     const promise = update({
       id: initialData._id,
       isPublished: true,
@@ -72,9 +72,12 @@ export function Publish({ initialData }: PublishProps) {
     <Popover>
       <PopoverTrigger asChild>
         <Button size="sm" variant="ghost">
+          <span className=' sm:block hidden'>
           Publish
+
+          </span>
           {initialData.isPublished && (
-            <Globe className="text-sky-500 w-4 h-4 ml-2" />
+            <Globe className="text-sky-500 w-4 h-4 sm:ml-2" />
           )}
         </Button>
       </PopoverTrigger>

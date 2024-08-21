@@ -57,10 +57,12 @@ export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
         {document && (
           <div className="flex justify-between items-center w-full">
             <Title initialData={document} />
-            <div className="flex gap-x-2 items-center">
-              <Publish initialData={document} />
-              <Menu documentId={document._id} />
-            </div>
+            {!document.isArchived && (
+              <div className="flex md:gap-x-2 items-center">
+                <Publish initialData={document} />
+                <Menu document={document} />
+              </div>
+            )}
           </div>
         )}
       </nav>
