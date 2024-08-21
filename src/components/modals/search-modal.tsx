@@ -45,7 +45,7 @@ export function SearchModal({
 
   return (
     <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
-      <CommandInput placeholder={`Search ${user?.fullName}'s Jotion`} />
+      <CommandInput placeholder={`Search in your documents`} />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         
