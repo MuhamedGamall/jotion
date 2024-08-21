@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { Check, Copy, Globe } from "lucide-react";
 import { toast } from "sonner";
-
+import Link from 'next/link'
 import {
   Popover,
   PopoverTrigger,
@@ -90,11 +90,6 @@ export function Publish({ initialData }: PublishProps) {
               </p>
             </div>
             <div className="flex items-center">
-              <input
-               className="flex-1 px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
-               value={url}
-             disabled
-            />
               <Link href={url}
                 className="flex-1 text-blue-600 underline px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
               
