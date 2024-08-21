@@ -91,9 +91,9 @@ export function Publish({ initialData }: PublishProps) {
             </div>
             <div className="flex items-center">
               <Link href={url}
-                className="flex-1 flex items-center  text-blue-500 underline px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
+                className="flex-1 flex items-center  text-blue-500 underline px-2 text-xs border rounded-l-md h-8 bg-muted"
               
-                ><span>{url}</span></Link>
+                ><span className="truncate">{url}</span></Link>
               <Button
                 className="h-8 rounded-l-none"
                 onClick={onCopy}
