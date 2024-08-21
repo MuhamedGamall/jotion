@@ -91,7 +91,7 @@ export function Publish({ initialData }: PublishProps) {
             </div>
             <div className="flex items-center">
               <Link href={url}
-                className="flex-1 overflow-x-hidden items-center  text-blue-500 underline px-2 text-xs border rounded-l-md h-8 bg-muted"
+                className="flex-1 flex overflow-x-hidden items-center  text-blue-500 underline px-2 text-xs border rounded-l-md h-8 bg-muted"
               
                 ><span className="truncate">{url}</span></Link>
               <Button
