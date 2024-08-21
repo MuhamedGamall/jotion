@@ -76,7 +76,16 @@ export const MobileSheet = ({ children }: { children: React.ReactNode }) => {
                 <div className="flex items-center  mb-3 text-sm p-3 w-full hover:bg-primary/5 ">
                   <div className="gap-x-2 flex items-center max-w-[150px] ">
                     {/* @ts-expect-error */}
-                    <UserButton userProfileMode="navigation" />
+                    <UserButton
+                      userProfileMode="navigation"
+                      appearance={{
+                        elements: {
+                          userButtonPopoverCard: { pointerEvents: "initial" },
+                        },
+                      }}
+                      
+                    />
+
                     <span className="text-start capitalize font-medium line-clamp-1">
                       {user?.fullName}
                     </span>

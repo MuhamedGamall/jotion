@@ -134,7 +134,7 @@ export function Navigation() {
     <>
       <aside
         className={cn(
-          `group/sidebar h-full bg-secondary overflow-y-auto relative hidden md:flex flex-col w-60 z-[999]`,
+          `group/sidebar h-full bg-secondary overflow-y-auto relative hidden md:flex flex-col w-60 z-[9999]`,
           isResetting && "transition-all ease-in-out duration-300",
           isMobile && "w-0"
         )}

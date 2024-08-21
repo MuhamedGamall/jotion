@@ -71,13 +71,12 @@ export function Publish({ initialData }: PublishProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button size="sm" variant="ghost">
-          <span className=' sm:block hidden'>
+        <Button size="sm" variant="ghost" >
+
           Publish
 
-          </span>
           {initialData.isPublished && (
-            <Globe className="text-sky-500 w-4 h-4 sm:ml-2" />
+            <Globe className="text-sky-500 w-4 h-4 ml-2 " />
           )}
         </Button>
       </PopoverTrigger>
