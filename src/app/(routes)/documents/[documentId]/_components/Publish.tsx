@@ -91,10 +91,14 @@ export function Publish({ initialData }: PublishProps) {
             </div>
             <div className="flex items-center">
               <input
-                className="flex-1 px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
-                value={url}
-                disabled
-              />
+               className="flex-1 px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
+               value={url}
+             disabled
+            />
+              <Link href={url}
+                className="flex-1 text-blue-600 underline px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
+              
+                >{url}</Link>
               <Button
                 className="h-8 rounded-l-none"
                 onClick={onCopy}
