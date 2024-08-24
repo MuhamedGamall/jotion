@@ -117,7 +117,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
       </div>
       {isEditing && !preview ? (
         <TextAreaAutoSize
-          className="text-5xl  bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]
+          className="text-5xll max-w-[250px] md:max-w-fit bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]
         resize-none"
           ref={inputRef}
           onBlur={disableInput}
