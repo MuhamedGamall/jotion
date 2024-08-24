@@ -1,6 +1,6 @@
 # Notion Clone
 
-A fullstack Notion clone built with Next.js, React, Tailwind, Clerk, Convex, Edge Store, and BlockNote.
+A fullstack Notion clone built with Next.js, React, Shadcn-UI, Tailwind, Clerk, Convex, and BlockNote.
 
 ## Landing page
 
@@ -13,7 +13,7 @@ A fullstack Notion clone built with Next.js, React, Tailwind, Clerk, Convex, Edg
 
 * 🔐 Authentication using Clerk
 * 📊 Real-time backend and database powered by Convex.dev
-* 🖼️ Upload images using connvex storage
+* 🖼️ Upload images using convex storage
 * 📝 Create and edit notes using BlockNote editor
 * 🙂 Emojis using Emoji Picker React
 * 🌲 Create hierarchies of notes
