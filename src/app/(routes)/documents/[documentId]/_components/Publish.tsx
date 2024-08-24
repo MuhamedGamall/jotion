@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { Check, Copy, Globe } from "lucide-react";
 import { toast } from "sonner";
-import Link from 'next/link'
+import Link from "next/link";
 import {
   Popover,
   PopoverTrigger,
@@ -71,10 +71,8 @@ export function Publish({ initialData }: PublishProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button size="sm" variant="ghost" >
-
+        <Button size="sm" variant="ghost">
           Publish
-
           {initialData.isPublished && (
             <Globe className="text-sky-500 w-4 h-4 ml-2 " />
           )}
@@ -90,10 +88,12 @@ export function Publish({ initialData }: PublishProps) {
               </p>
             </div>
             <div className="flex items-center">
-              <Link href={url}
-                className="flex-1 flex overflow-x-hidden items-center  text-blue-500 underline px-2 text-xs border rounded-l-md h-8 bg-muted"
-              
-                ><span className="truncate">{url}</span></Link>
+              <Link
+                href={url}
+                className="flex-1 flex overflow-x-hidden items-center  text-blue-300 underline px-2 text-xs border rounded-l-md h-8 bg-muted"
+              >
+                <span className="truncate">{url}</span>
+              </Link>
               <Button
                 className="h-8 rounded-l-none"
                 onClick={onCopy}
