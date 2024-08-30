@@ -15,9 +15,9 @@ export default function DocumentsContent() {
 
   const create = useMutation(api.documents.create);
 
-  const { user } = useUser();
+  const { isLoaded, user } = useUser();
 
-  if (user === undefined) {
+  if (!isLoaded) {
     return (
       <div className="h-full flex justify-center items-center">
         <Spinner size="lg" />

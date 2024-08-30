@@ -24,7 +24,6 @@ interface MenuProps {
 
 export function Menu({ document }: MenuProps) {
   const router = useRouter();
-  const { user } = useUser();
 
   const archive = useMutation(api.documents.archive);
 

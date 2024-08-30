@@ -6,22 +6,19 @@ import {
 } from "@/components/ui/popover";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetTrigger,
+  SheetTrigger
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
 import { useMutation } from "convex/react";
 import {
-  ChevronsLeft,
   EditIcon,
-  MenuIcon,
   Plus,
   PlusCircle,
   Search,
   Settings,
-  Trash,
+  Trash
 } from "lucide-react";
 
 import { SearchModal } from "@/components/modals/search-modal";
@@ -32,12 +29,10 @@ import { api } from "../../../../convex/_generated/api";
 import { DocumentList } from "./DocumentList";
 import { Item } from "./Item";
 import { TrashBox } from "./TrashBox";
-import { useParams } from "next/navigation";
-import { Navbar } from "./Navbar";
 
 export const MobileSheet = ({ children }: { children: React.ReactNode }) => {
   const { user } = useUser();
-  const params = useParams();
+
   const create = useMutation(api.documents.create);
   const [searchOpen, setSearchOpen] = useState(false);
 
