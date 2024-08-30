@@ -1,14 +1,14 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { Spinner } from "../LoasdingSpinner";
+import { Spinner } from "../LoadingSpinner";
 
 export default function LoaderProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const {isLoaded } = useUser();
+  const { isLoaded } = useUser();
 
   if (!isLoaded) {
     return (

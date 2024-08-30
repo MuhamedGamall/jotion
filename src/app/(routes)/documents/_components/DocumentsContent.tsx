@@ -1,6 +1,6 @@
 "use client";
 
-import { Spinner } from "@/components/LoasdingSpinner";
+import { Spinner } from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
 import { useMutation } from "convex/react";
